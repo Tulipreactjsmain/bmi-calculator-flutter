@@ -5,6 +5,8 @@ import '../components/icon_content.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../utils/constants.dart';
 import '../components/customButton.dart';
+import '../calculator_brain.dart';
+import '../screens/results_page.dart';
 
 enum Gender {
   male,
@@ -23,6 +25,7 @@ class _InputPageState extends State<InputPage> {
   int height = 150;
   int weight = 60;
   int age = 18;
+  late CalculatorBrain calc;
 
   @override
   Widget build(BuildContext context) {
@@ -215,13 +218,17 @@ class _InputPageState extends State<InputPage> {
             BottomButton(
               buttonTitle: 'CALCULATE',
               onTap: () => {
-                Navigator.pushNamed(context, 'result'),
+                calc = CalculatorBrain(height: height, weight: weight),
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResultsPage(
+                            bmiResult: calc.calculateBMI(),
+                            resultText: calc.getResult(),
+                            interpretation: calc.getInterpretation()))),
               },
             )
           ],
         ));
   }
 }
-
-
-

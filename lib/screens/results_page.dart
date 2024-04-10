@@ -4,7 +4,14 @@ import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 
 class ResultsPage extends StatelessWidget {
-  const ResultsPage({super.key});
+  const ResultsPage(
+      {required this.bmiResult,
+      required this.resultText,
+      required this.interpretation});
+
+  final String bmiResult;
+  final String resultText;
+  final String interpretation;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +25,7 @@ class ResultsPage extends StatelessWidget {
         children: [
           Expanded(
               child: Container(
-                padding: EdgeInsets.only(top: 20),
+            padding: EdgeInsets.only(top: 20),
             child: Text(
               'Your Result',
               textAlign: TextAlign.center,
@@ -36,15 +43,15 @@ class ResultsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Normal',
+                        resultText.toUpperCase(),
                         style: kResultTextStyle,
                       ),
                       Text(
-                        '18.3',
+                        bmiResult,
                         style: kBMITextStyle,
                       ),
                       Text(
-                        'Your BMI result is low, you should eat more',
+                        interpretation,
                         style: kbodyTextStyle,
                         textAlign: TextAlign.center,
                       )
@@ -53,7 +60,8 @@ class ResultsPage extends StatelessWidget {
                 ),
               )),
           BottomButton(
-              onTap: () => {Navigator.pop(context)}, buttonTitle: 'RECALCULATE')
+              onTap: () => {Navigator.pop(context)},
+              buttonTitle: 'RE-CALCULATE')
         ],
       ),
     );
